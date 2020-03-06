@@ -10,6 +10,7 @@ if (token) {
     $("#landing-page").hide()
 } else {
     $("#dashboard").hide()
+
     $("#landing-page").show()
 }
 
