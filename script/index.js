@@ -125,11 +125,20 @@ function view (title) {
             </div>
             `
             $("#detail-movie").append(division)
+            detailPage()
 
         })
         .catch(err => {
             console.log(err)
         })
+}
+
+function detailPage() {
+    $('#dashboard').show()
+    $("#detail-movie").show()
+    $('#listMovies').hide()
+    $('#wishlist-movies').hide()
+    $('#loading-data').hide()  
 }
 
 function addWishlist(imdbID) {
@@ -206,12 +215,18 @@ function dashboardPage() {
 
 function wishlistPage() {
     // $("#detail-movie").show()
-    fetchWishlistMovie()
-    $("#listMovies").hide()
-    $('#detail-movie').hide()
-    $("#lodaing-data").hide()
-    $("#wishlist-movies").show()
+    // fetchWishlistMovie()
+    // $("#listMovies").hide()
+    // $('#detail-movie').hide()
+    // $("#lodaing-data").hide()
+    // $("#wishlist-movies").show()
 
+    $('#dashboard').show()
+    $("#detail-movie").hide()
+    $('#listMovies').hide()
+    $('#wishlist-movies').show()
+    $('#loading-data').hide() 
+    fetchWishlistMovie()
   }
   
   function fetchWishlistMovie () {
@@ -228,22 +243,20 @@ function wishlistPage() {
         response.forEach(movie => {
           let card = `
           <div class="card-movie">
-              <h4>${movie.title} ${movie.year}</h4>
+              <h4 style="color:white; ">${movie.title} ${movie.year}</h4>
               <img src="${movie.image_url}">
               <div class="action-card">
     
-                  <a onclick="deleteMovie('${movie.id}')"><i class="fas fa-trash-alt"></i></a>
+                  <a style="color:white;" onclick="deleteMovie('${movie.id}')"><i class="fas fa-trash-alt"></i></a>
               </div>
           </div>
           `
           $('#wishlist-movies').append(card)
+        //   wishlistPage()
         })
       })
       .fail(err => {
         console.log(err)
-      })
-      always(() => {
-        
       })
   }
   
@@ -267,6 +280,12 @@ function wishlistPage() {
       })
   
   }
+
+  function backHome() {
+      console.log('BACK HOME')
+    dashboardPage()
+    }
+  
 
 $(document).ready(function () {
     isLogin()
@@ -370,6 +389,16 @@ $(document).ready(function () {
         localStorage.clear()
         landingPage()   
     });
+    })
+
+    $("#home-nih").on('click', function() {
+        $('#dashboard').show()
+        $("#detail-movie").hide()
+        $('#listMovies').show()
+        $('#wishlist-movies').hide()
+        $('#loading-data').hide() 
+        // fetchWishlistMovie()
+        // dashboardPage()
     })
 })
 

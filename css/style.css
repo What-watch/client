@@ -18,6 +18,10 @@ h3 {
     height: 100vh;
 }
 
+#dashboard {
+    padding-top: 0px;
+}
+
 .myform {
     position: relative;
     display: -ms-flexbox;
