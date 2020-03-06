@@ -32,8 +32,10 @@ function fetchMoviesNow() {
             });
 
         })
-        .fail(err => {
-            console.log(err)
+        .fail(err => {                
+            let msg = err.responseJSON.err
+            let status = err.status
+            swal(`Error ${status}`, `${msg}`, "error");
         })
 }
 
@@ -67,7 +69,9 @@ function fetchMoviesUpcoming() {
 
         })
         .fail(err => {
-            console.log(err)
+            let msg = err.responseJSON.err
+            let status = err.status
+            swal(`Error ${status}`, `${msg}`, "error");
         })
 }
 
