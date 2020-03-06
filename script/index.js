@@ -1,5 +1,6 @@
 function hideAll() {
     $("#dashboard").hide()
+    $("#landing-page").hide()
     $("#first").hide()
     $("#second").hide()
 }
@@ -94,7 +95,7 @@ function onSignIn(googleUser) {
 }
 
 function isLogin() {
-    if(localStorage.token){
+    if (localStorage.token) {
         hideAll()
         fetchMoviesNow()
         fetchMoviesUpcoming()
@@ -107,7 +108,6 @@ function isLogin() {
 
 $(document).ready(function () {
     isLogin()
-
     $("#register-btn").on("click", function () {
         $("#first").hide()
         $("#second").show()
@@ -198,6 +198,7 @@ $(document).ready(function () {
 
     // end document ready
 })
+
 function signOut() {
     localStorage.removeItem("token")
     var auth2 = gapi.auth2.getAuthInstance();
