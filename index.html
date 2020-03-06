@@ -1,39 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <meta name="google-signin-client_id"
+        content="338648619977-25cl40n7cjs46n19rhh735f3v9d0hnd9.apps.googleusercontent.com">
+    <link rel="stylesheet" href="./css/style.css">
     <title>What Watch</title>
 </head>
+
 <body>
+    <section id="landing-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 mx-auto">
+                    <div id="first">
+                        <div class="myform form ">
+                            <div class="logo mb-3">
+                                <div class="col-md-12 text-center">
+                                    <h1>What Watch</h1>
+                                    <h3>Login</h3>
+                                </div>
+                            </div>
+                            <form id="form-login">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <input type="email" name="email" class="form-control" id="email-log"
+                                        aria-describedby="emailHelp" placeholder="Enter email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Password</label>
+                                    <input type="password" name="password" id="password-log" class="form-control"
+                                        aria-describedby="emailHelp" placeholder="Enter Password">
+                                </div>
+                                <div class="col-md-12 text-center ">
+                                    <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Login</button>
+                                </div>
+                                <div class="col-md-12 ">
+                                    <div class="login-or">
+                                        <hr class="hr-or">
+                                        <span class="span-or">
+                                            Or
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                                </div>
+                                <div class="form-group">
+                                    <p class="text-center">Don't have account? <a type="button" id="register-btn">
+                                            <strong> Register Here</strong>
+                                        </a>
+                                    </p>
 
-    <div>
-        <button id="wishlist-menu">Wishlist</button>
-    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="second">
+                        <div class="myform form ">
+                            <div class="logo mb-3">
+                                <div class="col-md-12 text-center">
+                                    <h1>register</h1>
+                                </div>
+                            </div>
+                            <form id="form-register">
+                                <div class="form-group">
+                                    <label for="fullname">Fullname</label>
+                                    <input type="text" name="fullname" class="form-control" id="fullname-reg"
+                                        aria-describedby="emailHelp" placeholder="Enter Your Fullname">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" name="email" class="form-control" id="email-reg"
+                                        aria-describedby="emailHelp" placeholder="Enter Email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" name="password" class="form-control" id="password-reg"
+                                        aria-describedby="emailHelp" placeholder="Enter email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="no_hp">Phone Number</label>
+                                    <input type="no_hp" name="no_hp" id="no_hp-reg" class="form-control"
+                                        aria-describedby="emailHelp" placeholder="Enter Password">
+                                </div>
+                                <div class="col-md-12 text-center mb-3">
+                                    <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Get Started
+                                        For Free</button>
+                                </div>
+                                <div class="col-md-12 ">
+                                    <div class="form-group">
+                                        <p class="text-center"><a href="#" id="login-btn">Already have an account?</a>
+                                        </p>
+                                    </div>
+                                </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     
-    <div id="wishlist-movies">
+    <section id="dashboard">
         
-    </div>
+        <div id="listMovies">
 
-    <div id="detail-movie">
+            <!-- ON GOING ====================================================================================================================================================================================== -->
+            <div>
+                <div class="d-flex justify-content-center  text-light">
+                    <h1>ON GOING</h1>
+                </div>
+                <div class="row my-4 d-flex flex-wrap m-5"  id="listNow">       
+                </div>
+            </div>
+        
+            <!-- UPCOMING ======================================================================================================================================================================================-->
+            <div>
+                <div class="d-flex justify-content-center text-light">
+                    <h1>UPCOMING</h1>
+                </div>
+                <div id="listUpcoming" class="row my-4 d-flex flex-wrap m-5">
+                    
+                </div>
+            </div>
+        </div>
 
-    </div>
+        <!-- Details -->
 
-    <div id="lodaing-data">
-        <img class="ldld" src="your-loader-url">
-    </div>
+        <div id="detail-movie">
+            <div class="hero-movie">
+                <img src="https://m.media-amazon.com/images/M/MV5BMTQ1MjQwMTE5OF5BMl5BanBnXkFtZTgwNjk3MTcyMDE@._V1_SX300.jpg">
+            </div>
+            <div class="my-detail-movie">
+                <div class="detail-author">
+                    <table class="table-detail-movie">
+                        <tr>
+                            <th>Title</th>
+                            <td>Aquaman</td>
+                        </tr>
+                        <tr>
+                            <th>Director</th>
+                            <td>Aquaman</td>
+                        </tr>
+                        <tr>
+                            <th>Production</th>
+                            <td>Aquaman</td>
+                        </tr>
+                        <tr>
+                            <th>Year</th>
+                            <td>Aquaman</td>
+                        </tr>
+                        <tr>
+                            <th>ImdbRating</th>
+                            <td>Aquaman</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="sinopsis">
+                    <h1>Sinopsis</h1>
+                    <p>When the newly crowned Queen Elsa accidentally uses her power to turn things into ice to curse her home in infinite winter, her sister Anna teams up with a mountain man, his playful reindeer, and a snowman to change the weather condition.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- WISHLIST html -->
+        <div>
+            <button id="wishlist-menu">Wishlist</button>
+        </div>
+        
+        <div id="wishlist-movies">
+            
+        </div>
+
+        <div id="detail-movie">
+
+        </div>
+
+        <div id="lodaing-data">
+            <img class="ldld" src="your-loader-url">
+        </div>
+
+    </section>
 
 
-    <script>
-        var ldld = new ldLoader({root: '.ldld'});
-    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script src="index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+        </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+        </script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="./script/index.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,176 @@
+body {
+    padding-top: 4.2rem;
+    padding-bottom: 4.2rem;
+    background: #2c3e50;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Kaushan Script', cursive;
+}
+
+#landing-page {
+    height: 100vh;
+}
+
+.myform {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 1rem;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(32, 28, 28, 0.2);
+    border-radius: 1.1rem;
+    outline: 0;
+    max-width: 500px;
+
+}
+
+.tx-tfm {
+    text-transform: uppercase;
+}
+
+.g-signin2 {
+    position: relative;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    margin-left: 7vw;
+    /* width: 100%; */
+    height: 40px;
+    text-align: center;
+}
+
+.mybtn {
+    border-radius: 50px;
+}
+
+.login-or {
+    position: relative;
+    color: #aaa;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.span-or {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: -2px;
+    margin-left: -25px;
+    background-color: #fff;
+    width: 50px;
+    text-align: center;
+}
+
+.hr-or {
+    height: 1px;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+.google {
+    color: #666;
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    outline: none;
+    border: 1px solid lightgrey;
+}
+
+form .error {
+    color: #ff0000;
+}
+
+#second {
+    display: none;
+}
+
+/* id = "wishlist-movies"  */
+#wishlist-movies {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 50px;
+    
+}
+
+
+/* id = "card-movie" */
+
+.card-movie {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border-style: outset;
+    margin: 10px;
+    padding: 10px;
+    width: 316px;
+    height: 496px;
+}
+
+.card-movie h4 {
+    justify-items: center;
+}
+
+.card-movie img {
+    width: 290px;
+    height: 400px;
+    margin: 5px auto;
+}
+
+.action-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.action-card a {
+    cursor: pointer;
+}
+
+/* Detail Movie */
+
+#detail-movie {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 20px;
+    border-style: outset;
+}
+
+.hero-movie {
+    margin: 10px;
+    width: 40%;
+}
+
+.hero-movie img {
+    width: 100%;
+    height: 100%;
+}
+
+.my-detail-movie {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.table-detail-movie {
+    margin: 10px;
+}
