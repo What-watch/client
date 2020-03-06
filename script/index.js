@@ -1,103 +1,21 @@
-function hideAll() {
+// function hideAll() {
+//     $("#dashboard").hide()
+//     $("#first").hide()
+//     $("#second").hide()
+// }
+
+let token = localStorage.getItem('token')
+if (token) {
+    $("#dashboard").show()
+    $("#landing-page").hide()
+} else {
     $("#dashboard").hide()
-    $("#first").hide()
-    $("#second").hide()
-}
 
-function fetchMoviesNow() {
-    console.log('masuk fetch movies now')
-    $.ajax({
-        method: 'GET',
-        url: 'http://localhost:3000/movies/now'
-    })
-        .done(movies => {
-            console.log(`ini now`);
-            console.log(movies)
-            movies.forEach(movie => {
-                // console.log(`ini movieee`)
-                // console.log(movie)
-                $("#listNow").append(`
-                <div class="col-3 mb-3">
-                    <div class="card text-center">
-                    <img
-                        src="${movie.poster_path}"
-                        class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">${movie.title}</h5>
-                        <button class="btn btn-primary" onclick="view()">View</button>
-                    </div>
-                    </div>
-                </div>
-                `)
-            });
-
-        })
-        .fail(err => {                
-            let msg = err.responseJSON.err
-            let status = err.status
-            swal(`Error ${status}`, `${msg}`, "error");
-        })
-}
-
-function fetchMoviesUpcoming() {
-    console.log('masuk fetch movies upcoming')
-    $.ajax({
-        method: 'GET',
-        url: 'http://localhost:3000/movies/upcoming'
-    })
-        .done(movies => {
-            console.log(`ini upcoming`)
-            console.log(movies)
-            movies.forEach(movie => {
-                // console.log(`ini movieee`)
-                // console.log(movie)
-                $("#listUpcoming").append(`
-                <div class="col-3 mb-3">
-                    <div class="card text-center">
-                    <img
-                        src="${movie.poster_path}"
-                        class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">${movie.title}</h5>
-                        <h2> Year : ${movie.year} </h2>
-                        <button class="btn btn-primary" onclick="view(${movie.title})">View</button>
-                    </div>
-                    </div>
-                </div>
-                `)
-            });
-
-        })
-        .fail(err => {
-            let msg = err.responseJSON.err
-            let status = err.status
-            swal(`Error ${status}`, `${msg}`, "error");
-        })
-}
-
-function onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-}
-
-function isLogin() {
-    if(localStorage.token){
-        hideAll()
-        fetchMoviesNow()
-        fetchMoviesUpcoming()
-        $("#dashboard").show()
-    } else {
-        hideAll()
-        $("#first").show()
-    }
+    $("#landing-page").show()
 }
 
 $(document).ready(function () {
-    isLogin()
-
+    // isLogin()
     $("#register-btn").on("click", function () {
         $("#first").hide()
         $("#second").show()
@@ -111,7 +29,6 @@ $(document).ready(function () {
     $("#form-login").on("submit", function () {
         event.preventDefault()
         $("#login-page").hide()
-
         let email = $("#email-log").val()
         let password = $("#password-log").val()
         $.ajax({
@@ -130,6 +47,10 @@ $(document).ready(function () {
                     icon: "success",
                     button: "Oke",
                 });
+                $("#landing-page").hide()
+                $("#dashboard").show()
+
+                isLogin()
             })
             .fail(err => {
                 let msg = err.responseJSON.err
@@ -179,9 +100,122 @@ $(document).ready(function () {
             })
     })
 
+    // $("#logout-btn").on("click", function (event) {
+    //     event.preventDefault()
+    //     localStorage.removeItem("token")
+    // })
 
     // $("#dashboard").show()
 
     // end document ready
 })
 
+function signOut() {
+    localStorage.removeItem("token")
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        console.log('User signed out.');
+    });
+}
+
+function fetchMoviesNow() {
+    console.log('masuk fetch movies now')
+    $.ajax({
+        method: 'GET',
+        url: 'http://localhost:3000/movies/now'
+    })
+        .done(movies => {
+            console.log(`ini now`);
+            console.log(movies)
+            movies.forEach(movie => {
+                // console.log(`ini movieee`)
+                // console.log(movie)
+                $("#listNow").append(`
+                <div class="col-3 mb-3">
+                    <div class="card text-center">
+                    <img
+                        src="${movie.poster_path}"
+                        class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">${movie.title}</h5>
+                        <button class="btn btn-primary" onclick="view()">View</button>
+                    </div>
+                    </div>
+                </div>
+                `)
+            });
+
+        })
+        .fail(err => {
+            console.log(err)
+        })
+}
+
+function fetchMoviesUpcoming() {
+    console.log('masuk fetch movies upcoming')
+    $.ajax({
+        method: 'GET',
+        url: 'http://localhost:3000/movies/upcoming'
+    })
+        .done(movies => {
+            console.log(`ini upcoming`)
+            console.log(movies)
+            movies.forEach(movie => {
+                // console.log(`ini movieee`)
+                // console.log(movie)
+                $("#listUpcoming").append(`
+                <div class="col-3 mb-3">
+                    <div class="card text-center">
+                    <img
+                        src="${movie.poster_path}"
+                        class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">${movie.title}</h5>
+                        <h2> Year : ${movie.year} </h2>
+                        <button class="btn btn-primary" onclick="view(${movie.title})">View</button>
+                    </div>
+                    </div>
+                </div>
+                `)
+            });
+
+        })
+        .fail(err => {
+            console.log(err)
+        })
+}
+
+function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    const id_token = googleUser.getAuthResponse().id_token;
+    $.ajax({
+        url: "http://localhost:3000/users/goologin",
+        method: "POST",
+        headers: {
+            token: id_token
+        }
+    })
+        .done(result => {
+            // $(".g-signin2").hide()
+            localStorage.setItem("token", result)
+
+            // afterLogin()
+            console.log(result);
+        })
+}
+
+function isLogin() {
+    if (token) {
+        $("#dashboard").show()
+        $("#landing-page").hide()
+        fetchMoviesNow()
+        fetchMoviesUpcoming()
+    } else {
+        hideAll()
+        $("#first").show()
+    }
+}
