@@ -13,20 +13,23 @@ function fetchMoviesNow() {
         .done(movies => {
             console.log(`ini now`);
             console.log(movies)
-            $("#listNow").append(`
-            <div class="col-3 mb-3">
-                <div class="card text-center">
-                <img
-                    src="https://www.idwpublishing.com/wp-content/uploads/2018/10/aHR0cDovL3d3dy5uZXdzYXJhbWEuY29tL2ltYWdlcy9pLzAwMC8yNDAvNzQ0L29yaWdpbmFsL1NwaWRlcm1hbjAxX2N2ckEuanBn.jpeg"
-                    class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">The Amazing Spiderman - new Avengers</h5>
-                    <p class="card-text">Author: J Michael S</p>
-                    <button class="btn btn-primary" onclick="view()">View</button>
+            movies.forEach(movie => {
+                // console.log(`ini movieee`)
+                // console.log(movie)
+                $("#listNow").append(`
+                <div class="col-3 mb-3">
+                    <div class="card text-center">
+                    <img
+                        src="${movie.poster_path}"
+                        class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">${movie.title}</h5>
+                        <button class="btn btn-primary" onclick="view()">View</button>
+                    </div>
+                    </div>
                 </div>
-                </div>
-            </div>
-            `)
+                `)
+            });
 
         })
         .fail(err => {
@@ -43,9 +46,25 @@ function fetchMoviesUpcoming() {
         .done(movies => {
             console.log(`ini upcoming`)
             console.log(movies)
-            // movies.forEach(movie => {
-                
-            // });
+            movies.forEach(movie => {
+                // console.log(`ini movieee`)
+                // console.log(movie)
+                $("#listUpcoming").append(`
+                <div class="col-3 mb-3">
+                    <div class="card text-center">
+                    <img
+                        src="${movie.poster_path}"
+                        class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">${movie.title}</h5>
+                        <h2> Year : ${movie.year} </h2>
+                        <button class="btn btn-primary" onclick="view(${movie.title})">View</button>
+                    </div>
+                    </div>
+                </div>
+                `)
+            });
+
         })
         .fail(err => {
             console.log(err)
