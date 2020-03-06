@@ -1,8 +1,10 @@
-function hideAll() {
-    $("#dashboard").hide()
-    $("#first").hide()
-    $("#second").hide()
-}
+// function hideAll() {
+//     $("#dashboard").hide()
+//     $("#first").hide()
+//     $("#second").hide()
+//     $("#landing-page").hide()
+// }
+
 
 function fetchMoviesNow() {
     console.log('masuk fetch movies now')
@@ -50,7 +52,6 @@ function fetchMoviesUpcoming() {
             console.log(movies)
             movies.forEach(movie => {
                 // console.log(`ini movieee`)
-                // console.log(movie)
                 $("#listUpcoming").append(`
                 <div class="col-3 mb-3">
                     <div class="card text-center">
@@ -59,8 +60,7 @@ function fetchMoviesUpcoming() {
                         class="card-img-top">
                     <div class="card-body">
                         <h5 class="card-title">${movie.title}</h5>
-                        <h2> Year : ${movie.year} </h2>
-                        <button class="btn btn-primary" onclick="view(${movie.title})">View</button>
+                        <button class="btn btn-primary" onclick="view('${movie.title}')">View</button>
                     </div>
                     </div>
                 </div>
@@ -75,29 +75,143 @@ function fetchMoviesUpcoming() {
         })
 }
 
+function view (title) {
+    console.log('nanananaana', title)
+    $("#detail-movie").empty()
+    $.ajax({
+        url: 'http://localhost:3000/imdb/movies?search=' + title,
+        method: 'GET'
+    })
+        .done(response => {
+
+            console.log(response, '>>>>>>>>>>>>>>>>>')
+            let division = `
+            <div class="hero-movie">
+                <img src="${response.Poster}">
+            </div>
+            <div class="my-detail-movie">
+                <div class="detail-author">
+                    <table class="table-detail-movie">
+                        <tr>
+                            <th>Title</th>
+                            <td>${response.Title}</td>
+                        </tr>
+                        <tr>
+                            <th>Director</th>
+                            <td>${response.Director}</td>
+                        </tr>
+                        <tr>
+                            <th>Production</th>
+                            <td>${response.Production}</td>
+                        </tr>
+                        <tr>
+                            <th>Year</th>
+                            <td>${response.Year}</td>
+                        </tr>
+                        <tr>
+                            <th>ImdbRating</th>
+                            <td>${response.imdbRating}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="sinopsis">
+                    <h1>Sinopsis</h1>
+                    <p>${response.Plot}</p>
+                    <button onclick="addWishlist('${response.imdbID}')">Add wishlist</button>
+                </div>
+            </div>
+            <div>
+                <iframe width="966" height="543" src="https://www.youtube.com/embed/${response.linkYT}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            `
+            $("#detail-movie").append(division)
+
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
+
+function addWishlist(imdbID) {
+    $.ajax({
+        url: 'http://localhost:3000/wishlists',
+        method: 'POST',
+        data: {
+            MovieId : imdbID
+        },
+        headers : {
+            token : localStorage.token
+        }
+    })
+        .done(response => {
+            wishlistPage()
+        })
+        .fail(err => {
+            console.log(err)
+        })
+}
+
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    // console.log('Name: ' + profile.getName());
+    // console.log('Image URL: ' + profile.getImageUrl());
+    // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    const id_token = googleUser.getAuthResponse().id_token;
+    $.ajax({
+        url: "http://localhost:3000/users/goologin",
+        method: "POST",
+        headers: {
+            token: id_token
+        }
+    })
+        .done(result => {
+            // $(".g-signin2").hide()
+            localStorage.setItem("token", result)
+            // afterLogin()
+            dashboardPage()
+            console.log(result);
+        })
 }
+
+
 
 function isLogin() {
     if(localStorage.token){
-        hideAll()
-        fetchMoviesNow()
-        fetchMoviesUpcoming()
-        $("#dashboard").show()
+        // hideAll()
+        // fetchMoviesNow()
+        // fetchMoviesUpcoming()
+        // $("#dashboard").show()
+        dashboardPage()
     } else {
-        hideAll()
-        $("#first").show()
+        // hideAll()
+        // $("#landing-page").show()
+        landingPage()
+
     }
 }
 
+function landingPage() {
+    $("#landing-page").show()
+    $("#dashboard").hide()
+}
+
+function dashboardPage() {
+    $("#landing-page").hide()
+    $("#dashboard").show()
+    fetchMoviesNow()
+    fetchMoviesUpcoming()
+    
+}
+
 function wishlistPage() {
-    $("#detail-movie").show()
+    // $("#detail-movie").show()
     fetchWishlistMovie()
+    $("#listMovies").hide()
+    $('#detail-movie').hide()
+    $("#lodaing-data").hide()
+    $("#wishlist-movies").show()
+
   }
   
   function fetchWishlistMovie () {
@@ -189,6 +303,7 @@ $(document).ready(function () {
                     icon: "success",
                     button: "Oke",
                 });
+                dashboardPage()
             })
             .fail(err => {
                 let msg = err.responseJSON.err
@@ -246,6 +361,15 @@ $(document).ready(function () {
     // WISHLIST 
     $('#wishlist-menu').on('click', function () {
         wishlistPage()
-      })
+    })
+
+    $("#logout").on('click', function () {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+        console.log('User signed out.');
+        localStorage.clear()
+        landingPage()   
+    });
+    })
 })
 

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <meta name="google-signin-client_id"
         content="338648619977-25cl40n7cjs46n19rhh735f3v9d0hnd9.apps.googleusercontent.com">
     <link rel="stylesheet" href="./css/style.css">
@@ -109,7 +110,29 @@
 
     
     <section id="dashboard">
-        
+            <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+                    <div id="navbarBasicExample" class="navbar-menu">
+                        <div class="navbar-start">
+                            <a class="navbar-item">
+                                What Watch
+                            </a>
+                            <a class="navbar-item" id="wishlist-menu">
+                                <i style="margin-right: 5px;" class="fas fa-list" width="112" height="50"></i>
+                                Wishlist
+                            </a>
+                        </div>
+                        <div class="navbar-end">
+                            <div class="navbar-item">
+                                <div class="buttons">
+                                    <a id="logout" class="button is-light">
+                                        <i style="margin-right: 5px;" class="fas fa-power-off"></i>
+                                        Logout
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
         <div id="listMovies">
 
             <!-- ON GOING ====================================================================================================================================================================================== -->
@@ -135,53 +158,16 @@
         <!-- Details -->
 
         <div id="detail-movie">
-            <div class="hero-movie">
-                <img src="https://m.media-amazon.com/images/M/MV5BMTQ1MjQwMTE5OF5BMl5BanBnXkFtZTgwNjk3MTcyMDE@._V1_SX300.jpg">
-            </div>
-            <div class="my-detail-movie">
-                <div class="detail-author">
-                    <table class="table-detail-movie">
-                        <tr>
-                            <th>Title</th>
-                            <td>Aquaman</td>
-                        </tr>
-                        <tr>
-                            <th>Director</th>
-                            <td>Aquaman</td>
-                        </tr>
-                        <tr>
-                            <th>Production</th>
-                            <td>Aquaman</td>
-                        </tr>
-                        <tr>
-                            <th>Year</th>
-                            <td>Aquaman</td>
-                        </tr>
-                        <tr>
-                            <th>ImdbRating</th>
-                            <td>Aquaman</td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="sinopsis">
-                    <h1>Sinopsis</h1>
-                    <p>When the newly crowned Queen Elsa accidentally uses her power to turn things into ice to curse her home in infinite winter, her sister Anna teams up with a mountain man, his playful reindeer, and a snowman to change the weather condition.</p>
-                </div>
-            </div>
+            
         </div>
 
         <!-- WISHLIST html -->
-        <div>
-            <button id="wishlist-menu">Wishlist</button>
-        </div>
+
         
         <div id="wishlist-movies">
             
         </div>
 
-        <div id="detail-movie">
-
-        </div>
 
         <div id="lodaing-data">
             <img class="ldld" src="your-loader-url">
@@ -197,6 +183,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
         </script>
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="./script/index.js"></script>

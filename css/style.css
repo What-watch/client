@@ -1,5 +1,5 @@
 body {
-    padding-top: 4.2rem;
+    padding-top: 0;
     padding-bottom: 4.2rem;
     background: #2c3e50;
 }
@@ -152,6 +152,7 @@ form .error {
     justify-content: flex-start;
     margin: 20px;
     border-style: outset;
+    background-color: aliceblue;
 }
 
 .hero-movie {
@@ -172,5 +173,5 @@ form .error {
 }
 
 .table-detail-movie {
-    margin: 10px;
+    margin-bottom: 20px;
 }
