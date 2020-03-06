@@ -1,8 +1,120 @@
-function hideAll() {
-    $("#dashboard").hide()
+// function hideAll() {
+//     $("#dashboard").hide()
+//     $("#first").hide()
+//     $("#second").hide()
+// }
+
+let token = localStorage.getItem('token')
+if (token) {
+    $("#dashboard").show()
     $("#landing-page").hide()
-    $("#first").hide()
-    $("#second").hide()
+} else {
+    $("#dashboard").hide()
+    $("#landing-page").show()
+}
+
+$(document).ready(function () {
+    // isLogin()
+    $("#register-btn").on("click", function () {
+        $("#first").hide()
+        $("#second").show()
+    })
+    $("#login-btn").on("click", function () {
+        $("#first").show()
+        $("#second").hide()
+    })
+
+    /// login form
+    $("#form-login").on("submit", function () {
+        event.preventDefault()
+        $("#login-page").hide()
+        let email = $("#email-log").val()
+        let password = $("#password-log").val()
+        $.ajax({
+            url: "http://localhost:3000/users/login",
+            method: "POST",
+            data: {
+                email,
+                password
+            }
+        })
+            .done(result => {
+                localStorage.setItem("token", result)
+                swal({
+                    title: "Good job!",
+                    text: "You are Login now",
+                    icon: "success",
+                    button: "Oke",
+                });
+                $("#landing-page").hide()
+                $("#dashboard").show()
+
+                isLogin()
+            })
+            .fail(err => {
+                let msg = err.responseJSON.err
+                let status = err.status
+                swal(`Error ${status}`, `${msg}`, "error");
+            })
+    })
+
+    /// register form
+
+    $("#form-register").on("submit", function (event) {
+        event.preventDefault()
+        let fullname = $("#fullname-reg").val()
+        let email = $("#email-reg").val()
+        let password = $("#password-reg").val()
+        let no_hp = $("#no_hp-reg").val()
+        $.ajax({
+            url: "http://localhost:3000/users/register",
+            method: "POST",
+            data: {
+                fullname,
+                email,
+                password,
+                no_hp
+            }
+        })
+            .done(result => {
+                swal({
+                    title: "Good job!",
+                    text: "Register is success",
+                    icon: "success",
+                    button: "Please Login",
+                });
+                $("#first").show()
+                $("#second").hide()
+                console.log(result);
+
+                console.log('success');
+            })
+            .fail(err => {
+                let msg = err.responseJSON.err
+                let status = err.status
+                swal(`Error ${status}`, `${msg}`, "error");
+            })
+            .always(() => {
+                console.log('loading now');
+            })
+    })
+
+    // $("#logout-btn").on("click", function (event) {
+    //     event.preventDefault()
+    //     localStorage.removeItem("token")
+    // })
+
+    // $("#dashboard").show()
+
+    // end document ready
+})
+
+function signOut() {
+    localStorage.removeItem("token")
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        console.log('User signed out.');
+    });
 }
 
 function fetchMoviesNow() {
@@ -89,120 +201,20 @@ function onSignIn(googleUser) {
         .done(result => {
             // $(".g-signin2").hide()
             localStorage.setItem("token", result)
+
             // afterLogin()
             console.log(result);
         })
 }
 
 function isLogin() {
-    if (localStorage.token) {
-        hideAll()
+    if (token) {
+        $("#dashboard").show()
+        $("#landing-page").hide()
         fetchMoviesNow()
         fetchMoviesUpcoming()
-        $("#dashboard").show()
     } else {
         hideAll()
         $("#first").show()
     }
-}
-
-$(document).ready(function () {
-    isLogin()
-    $("#register-btn").on("click", function () {
-        $("#first").hide()
-        $("#second").show()
-    })
-    $("#login-btn").on("click", function () {
-        $("#first").show()
-        $("#second").hide()
-    })
-
-    /// login form
-    $("#form-login").on("submit", function () {
-        event.preventDefault()
-        $("#login-page").hide()
-
-        let email = $("#email-log").val()
-        let password = $("#password-log").val()
-        $.ajax({
-            url: "http://localhost:3000/users/login",
-            method: "POST",
-            data: {
-                email,
-                password
-            }
-        })
-            .done(result => {
-                localStorage.setItem("token", result)
-                swal({
-                    title: "Good job!",
-                    text: "You are Login now",
-                    icon: "success",
-                    button: "Oke",
-                });
-            })
-            .fail(err => {
-                let msg = err.responseJSON.err
-                let status = err.status
-                swal(`Error ${status}`, `${msg}`, "error");
-            })
-    })
-
-    /// register form
-
-    $("#form-register").on("submit", function (event) {
-        event.preventDefault()
-        let fullname = $("#fullname-reg").val()
-        let email = $("#email-reg").val()
-        let password = $("#password-reg").val()
-        let no_hp = $("#no_hp-reg").val()
-        $.ajax({
-            url: "http://localhost:3000/users/register",
-            method: "POST",
-            data: {
-                fullname,
-                email,
-                password,
-                no_hp
-            }
-        })
-            .done(result => {
-                swal({
-                    title: "Good job!",
-                    text: "Register is success",
-                    icon: "success",
-                    button: "Please Login",
-                });
-                $("#first").show()
-                $("#second").hide()
-                console.log(result);
-
-                console.log('success');
-            })
-            .fail(err => {
-                let msg = err.responseJSON.err
-                let status = err.status
-                swal(`Error ${status}`, `${msg}`, "error");
-            })
-            .always(() => {
-                console.log('loading now');
-            })
-    })
-
-    // $("#logout-btn").on("click", function (event) {
-    //     event.preventDefault()
-    //     localStorage.removeItem("token")
-    // })
-
-    // $("#dashboard").show()
-
-    // end document ready
-})
-
-function signOut() {
-    localStorage.removeItem("token")
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-        console.log('User signed out.');
-    });
 }
